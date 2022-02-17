@@ -15,10 +15,10 @@ class Html
 
     public function __toString()
     {
-        $sResult = "<html lang=\"{$this->getLang()}\">";
+        $sResult = "<html lang=\"{$this->getLang()}\"> \n";
         $sResult .= $this->getHead();
         $sResult .= $this->getBody();
-        $sResult .= "</html>";
+        $sResult .= "</html> \n";
         
         return $sResult;
     }

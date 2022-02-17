@@ -10,7 +10,7 @@ class Body
 
     public function __toString()
     {
-        return "<body>{$this->getContent()}</body>";
+        return "<body> \n {$this->getContent()} \n </body> \n";
     }
 
     /**

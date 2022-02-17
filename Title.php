@@ -11,7 +11,7 @@ class Title
 
     public function __toString()
     {
-        return "<title>{$this->getContent()}</title>";
+        return "<title>{$this->getContent()}</title> \n";
     }
 
     /**

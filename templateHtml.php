@@ -14,7 +14,7 @@ class templateHtml
 
     public function __toString()
     {
-        return $this->getDocType() + "<br>" + $this->getHtml();
+        return $this->getDocType() . " \n " . $this->getHtml();
     }
 
     /**

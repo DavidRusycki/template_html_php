@@ -14,12 +14,14 @@ class Head
 
     public function __toString()
     {
-        $sResult = "<head>";
+        $sResult = "<head> \n";
         foreach($this->getMetas() as $oMeta) {
-            $sResult .= $oMeta;
+            $sResult .= $oMeta . "\n";
         }
         $sResult .= $this->getTitle();
-        $sResult .= "</head>";
+        $sResult .= "</head> \n";
+
+        return $sResult;
     }
 
     /**

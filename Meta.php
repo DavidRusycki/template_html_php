@@ -6,7 +6,7 @@ class Meta
     private string $content;
     private string $name;
 
-    public function __construct($charset = null, $http_equiv = null, $content = null, $name = null)
+    public function __construct($charset = '', $http_equiv = '', $content = '', $name = '')
     {
         $this->setCharset($charset)->setHttp_equiv($http_equiv)->setContent($content)->setName($name);
     }
