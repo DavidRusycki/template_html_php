@@ -82,4 +82,24 @@ class Html
 
         return $this;
     }
+
+    /**
+     * Get the value of componentes
+     */ 
+    public function getComponentes()
+    {
+        return $this->componentes;
+    }
+
+    /**
+     * Set the value of componentes
+     *
+     * @return  self
+     */ 
+    public function setComponentes($componentes)
+    {
+        $this->componentes = $componentes;
+
+        return $this;
+    }
 }
