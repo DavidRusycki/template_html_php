@@ -10,12 +10,12 @@ class Tr
 
     public function __toString()
     {
-        $sResult = "<td>";
+        $sResult = "<tr>";
         foreach($this->getColunas() as $oColuna) 
         {
             $sResult .= $oColuna . "\n";
         }
-        $sResult = "</td>";
+        $sResult .= "</tr>";
 
         return $sResult;
     }

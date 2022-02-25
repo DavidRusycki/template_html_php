@@ -15,7 +15,7 @@ class Table
     {
         $aTr = [];
         $aTr[] = $this->getTrTitulos($aTitulos, $aConteudo);
-        $aTr[] = $this->getLinhasRestantes($iLinhas, $aConteudo);
+        $aTr = array_merge($aTr, $this->getLinhasRestantes($iLinhas, $aConteudo)); 
         $this->setLinhas($aTr);
     }
 
@@ -56,7 +56,7 @@ class Table
             }
             $aTr[] = $this->getNewTr($aTd);
             $iLimite++;
-            if ($iLimite >= $iLinhas) {
+            if ($iLimite > $iLinhas) {
                 break;
             }
         }

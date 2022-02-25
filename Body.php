@@ -19,7 +19,7 @@ class Body
         $sHtml = "";
 
         foreach($this->getComponentes() as $sComponente) {
-            $sHtml .= $sComponente . ' \n ';
+            $sHtml .= $sComponente . " \n ";
         }
 
         return $sHtml;
