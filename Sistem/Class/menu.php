@@ -1,5 +1,6 @@
 <?php
 namespace Sistem\Class;
+use Html\H1;
 use Html\Body;
 use Html\Head;
 use Html\Html;
@@ -39,6 +40,7 @@ class Menu
     {
         $aConteudo = [['codigo' => 1, 'nome' => 'david'], ['codigo' => 2, 'nome' => 'samuel'], ['codigo' => 3, 'nome' => 'paulo']];
         $this->getBody()->addComponente(new Table(['Código', 'Nome'], 2, $aConteudo));
+        $this->getBody()->addComponente(new H1('Belissimo David'));
     }
 
     /**
