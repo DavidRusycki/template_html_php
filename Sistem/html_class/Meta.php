@@ -19,8 +19,8 @@ class Meta
 
         $sResult .= !!$this->getCharset() ? " charset=\"{$this->getCharset()}\"" : "";
         $sResult .= !!$this->getHttp_equiv() ? " http-equiv=\"{$this->getHttp_equiv()}\"" : "";
-        $sResult .= !!$this->getName() ? "name=\"{$this->getName()}\"" : "";
-        $sResult .= !!$this->getContent() ? "content=\"{$this->getContent()}\"" : "";
+        $sResult .= !!$this->getName() ? " name=\"{$this->getName()}\"" : "";
+        $sResult .= !!$this->getContent() ? " content=\"{$this->getContent()}\"" : "";
 
         $sResult .= ">";
         return $sResult;
