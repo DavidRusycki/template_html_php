@@ -1,4 +1,6 @@
 <?php
+namespace Html;
+
 class Meta  
 {
     private string $charset;

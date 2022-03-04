@@ -1,4 +1,6 @@
 <?php
+namespace Html;
+
 class Body  
 {
     private string $content;

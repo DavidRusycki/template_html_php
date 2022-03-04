@@ -1,6 +1,6 @@
 <?php
-require_once('DocType.php');
-require_once('Html.php');
+namespace Html;
+
 class templateHtml  
 {
 

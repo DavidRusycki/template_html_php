@@ -1,0 +1,9 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Sistem\\" : "./Sistem",
+            "Components\\" : "./Sistem/Components",
+            "Html\\" : "./Sistem/html_class"
+        }
+    }
+}

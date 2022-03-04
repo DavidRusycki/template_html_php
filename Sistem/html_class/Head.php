@@ -1,6 +1,6 @@
 <?php
-require_once('Meta.php');
-require_once('Title.php');
+namespace Html;
+
 class Head  
 {
     

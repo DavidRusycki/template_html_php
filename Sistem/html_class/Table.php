@@ -1,6 +1,6 @@
 <?php
-require_once('Tr.php');
-require_once('Td.php');
+namespace Html;
+
 class Table  
 {
     

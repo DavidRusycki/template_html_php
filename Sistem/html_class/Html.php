@@ -1,6 +1,6 @@
 <?php
-require_once('Head.php');
-require_once('Body.php');
+namespace Html;
+
 class Html  
 {
     
