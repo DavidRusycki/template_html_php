@@ -6,6 +6,7 @@ class Head
     
     private $Metas = [];
     private $Title;
+    private $others;
 
     public function __construct($aMetas, $Title)
     {
@@ -19,7 +20,8 @@ class Head
             $sResult .= $oMeta . "\n";
         }
         $sResult .= $this->getTitle();
-        $sResult .= "</head> \n";
+        $sResult .= $this->getOthers();
+        $sResult .= " </head> \n";
 
         return $sResult;
     }
@@ -60,6 +62,26 @@ class Head
     public function setTitle($Title)
     {
         $this->Title = $Title;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of others
+     */ 
+    public function getOthers()
+    {
+        return $this->others;
+    }
+
+    /**
+     * Set the value of others
+     *
+     * @return  self
+     */ 
+    public function setOthers($others)
+    {
+        $this->others = $others;
 
         return $this;
     }

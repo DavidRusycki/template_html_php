@@ -23,13 +23,14 @@ class Menu
     {
         $this->setBody(new Body('<h1>Sai sim</h1>'));
     }
-
+    
     public function __toString()
     {
         $oHead = new Head([new Meta("UTF-8"), new Meta('', "X-UA-Compatible", "IE=edge"), new Meta('', '', "width=device-width, initial-scale=1.0", "viewport")], new Title('Samuel'));
-        
-        $this->addComponentesBody();
+        $oHead->setOthers(' <link rel="stylesheet" href="http://localhost/template_html_php/sistem/style/style.css"> '); 
 
+        $this->addComponentesBody();
+        
         $oHtml = new Html('pt-BR', $oHead, $this->getBody());
         $oTemplate = new templateHtml(new DocType(), $oHtml);
 
@@ -38,9 +39,7 @@ class Menu
 
     private function addComponentesBody()
     {
-        $aConteudo = [['codigo' => 1, 'nome' => 'david'], ['codigo' => 2, 'nome' => 'samuel'], ['codigo' => 3, 'nome' => 'paulo']];
-        $this->getBody()->addComponente(new Table(['Código', 'Nome'], 2, $aConteudo));
-        $this->getBody()->addComponente(new H1('Belissimo David'));
+        $this->getBody()->addComponente(new Table(['codigo', 'nome', 'preco', 'quantidade'], 100, \Components\FacadeDb\Postgres::getInstance()->select('select * from tbproduto')));
     }
 
     /**
