@@ -47,7 +47,10 @@ class Body
         return $this;
     }
 
-    public function addComponente($oComponente) 
+    /**
+     * Aceita somente objetos.
+     */
+    public function addComponente(object $oComponente) 
     {
         $this->componentes[] = $oComponente;
     }
