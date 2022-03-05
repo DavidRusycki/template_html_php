@@ -1,5 +1,7 @@
 <?php
 namespace Model;
+use Components\FacadeDb\Manager;
+
 /**
  * Modelo de Usuário
  * @author David Rusycki
@@ -11,10 +13,24 @@ class ModelUsuario
     private int $codigo;
     private string $nome;
     private bool $logado = false;
+    private Manager $Db;
 
-    public function getUsuarioFromCodigo() 
+    /**
+     * Retorna um model de usuário baseado no código do usuário.
+     */
+    public function getUsuarioFromCodigo($iCodigo) 
     {
-        
+        $xRetorno = $this->getDb()->select("select * from tbusuario where codigo = {$iCodigo}");
+        if (is_array($xRetorno)) {
+            $aLinha = end($xRetorno);
+            $oNewModel = new Self();
+            $oNewModel->setDb($this->getDb());
+            $oNewModel->setCodigo($aLinha['codigo']);
+            $oNewModel->setNome($aLinha['nome']);
+
+            $xRetorno = $oNewModel;
+        }
+        return $xRetorno;
     }
 
     /**
@@ -77,4 +93,23 @@ class ModelUsuario
         return $this;
     }
 
+    /**
+     * Get the value of Db
+     */ 
+    public function getDb()
+    {
+        return $this->Db;
+    }
+
+    /**
+     * Set the value of Db
+     *
+     * @return  self
+     */ 
+    public function setDb($Db)
+    {
+        $this->Db = $Db;
+
+        return $this;
+    }
 }

@@ -1,5 +1,8 @@
 <?php
 namespace Sistem;
+
+use Components\FacadeDb\Manager;
+use Components\FacadeDb\Postgres;
 use Model\ModelSistema;
 /**
  * Controller Principal do sistema.
@@ -11,12 +14,14 @@ class ControllerSistema
     
     private $tela;
     private ModelSistema $model;
+    private Manager $Db;
 
     private function __construct() {}
 
-    public static function init($oModel) : void
+    public static function init() : void
     {
         $oController = self::getNewSelf();
+        $oController->setDb(Postgres::getInstance());
         $oController->setModel(new ModelSistema());
         $oController->loadUsuario();
         $oController->trataDadosRequisicao();
@@ -48,8 +53,18 @@ class ControllerSistema
     {
         //TODO Colocar constante no lugar da string das situações.
         if ($_SESSION['usuario'] && $_SESSION['logado']) {
-            $this->getModel()->getUsuario()->setLogado(true);
-            $this->getModel()->getUsuario()->setNome();
+            $this->getModel()->getUsuario()->setDb($this->getDb());
+            // Verificar se o usuário está logado e buscar as informações dele para o modelo.
+            $oUsuario = $this->getModel()->getUsuario()->getUsuarioFromCodigo($_SESSION['usuario']);
+            if (is_object($oUsuario)) 
+            {
+                $oUsuario->setLogado($_SESSION['logado']);
+            }
+            else 
+            {
+                unset($_SESSION['usuario']);
+                unset($_SESSION['logado']);
+            }
         }
         else {
             //TODO Colocar constante no lugar da string da rotina.
@@ -127,6 +142,26 @@ class ControllerSistema
     public function setModel($model)
     {
         $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Db
+     */ 
+    public function getDb()
+    {
+        return $this->Db;
+    }
+
+    /**
+     * Set the value of Db
+     *
+     * @return  self
+     */ 
+    public function setDb($Db)
+    {
+        $this->Db = $Db;
 
         return $this;
     }
