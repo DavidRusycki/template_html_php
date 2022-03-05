@@ -6,7 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'View\\' => array($baseDir . '/Sistem/Class/view'),
     'Sistem\\' => array($baseDir . '/Sistem'),
+    'Model\\' => array($baseDir . '/Sistem/Class/model'),
     'Html\\' => array($baseDir . '/Sistem/html_class'),
+    'Controller\\' => array($baseDir . '/Sistem/Class/controller'),
     'Components\\' => array($baseDir . '/Sistem/Components'),
 );

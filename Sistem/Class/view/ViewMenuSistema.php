@@ -1,5 +1,5 @@
 <?php
-namespace Sistem\Class;
+namespace View;
 use Html\H1;
 use Html\Body;
 use Html\Head;
@@ -14,7 +14,7 @@ use Html\templateHtml;
  * @author David Rusycki
  * @since 03/03/2022
  */
-class Menu  
+class ViewMenuSistema
 {
  
     private Body $Body;
