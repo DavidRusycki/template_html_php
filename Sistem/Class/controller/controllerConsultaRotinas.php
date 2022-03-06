@@ -1,5 +1,6 @@
 <?php
 namespace Controller;
+use \View\ViewConsultaRotinas;
 
 /**
  * Controller Consulta de rotinas do sistema.
@@ -10,6 +11,16 @@ class ControllerConsultaRotinas
 {
         
     private $tela;
+    
+    public function __construct() 
+    {
+        $this->criaTela();
+    }
+    
+    private function criaTela() 
+    {
+        $this->setTela(new ViewConsultaRotinas());
+    }
     
     public function imprimeTela()
     {

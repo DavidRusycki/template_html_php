@@ -26,7 +26,7 @@ class ModelBoRotina
     public function validaRotinaExiste($sNome) : bool
     {
         $xResult = $this->getModel()->buscaRotinaFromNome($sNome);
-        if (!!$xResult) 
+        if (!$xResult) 
         {
             throw new \Exception('A rotina solicitada não existe');
         }

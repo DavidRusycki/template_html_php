@@ -96,8 +96,8 @@ class ControllerSistema
      */
     private function direcionaLogin() : void
     {
-//        $this->getModel()->defineGet(EnumSistema::ACAO, EnumAcoes::INCLUIR);
-//        $this->getModel()->defineGet(EnumSistema::PG, EnumSistema::PG_LOGIN);
+        $this->getModel()->defineGet(EnumSistema::ACAO, EnumAcoes::INCLUIR);
+        $this->getModel()->defineGet(EnumSistema::PG, EnumSistema::PG_LOGIN);
     }
     
     /**
@@ -197,7 +197,7 @@ class ControllerSistema
     public function imprimeTela() : void
     {
         $bResult = empty($this->getControllerRequisicao());
-        if ($bResult) 
+        if (!$bResult) 
         {
             echo $this->getControllerRequisicao()->imprimeTela();
         }
@@ -270,7 +270,7 @@ class ControllerSistema
 
     public function setControllerRequisicao($ControllerRequisicao) 
     {
-        $this->getModel()->setControllerRequisicao($controllerRequisicao);
+        $this->getModel()->setControllerRequisicao($ControllerRequisicao);
         return $this;
     }
     
