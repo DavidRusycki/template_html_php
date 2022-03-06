@@ -6,7 +6,7 @@ class Body
     private string $content;
     private $componentes = [];
 
-    public function __construct($content)
+    public function __construct($content = '')
     {
         $this->setContent($content);
     }

@@ -7,33 +7,14 @@ use \View\ViewConsultaRotinas;
  * @author David Rusycki
  * @since 05/03/2022
  */
-class ControllerConsultaRotinas
+class ControllerConsultaRotinas extends ControllerConsulta
 {
-        
-    private $tela;
     
-    public function __construct() 
-    {
-        $this->criaTela();
-    }
-    
-    private function criaTela() 
-    {
-        $this->setTela(new ViewConsultaRotinas());
-    }
-    
-    public function imprimeTela()
-    {
-        echo $this->getTela();
-    }
-    
-    public function getTela() {
-        return $this->tela;
-    }
-
-    public function setTela($tela): void {
-        $this->tela = $tela;
+    /**
+     * {@inheritDoc}
+     */
+    public function getInstanceTela() {
+        return new ViewConsultaRotinas($this);
     }
     
 }
-

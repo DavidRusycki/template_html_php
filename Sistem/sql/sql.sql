@@ -10,6 +10,10 @@ create table tbrotina(
 
 alter table tbrotina add constraint pk_tbrotina primary key (codigo);
 
+/* Valores padrões para rotinas */
+INSERT INTO TBROTINA VALUES (1, 'login');
+INSERT INTO TBROTINA VALUES (2, 'rotinas');
+
 
 /*Criação da tabela de usuários*/
 

@@ -85,4 +85,12 @@ class Head
 
         return $this;
     }
+    
+    public function addOthers($sOthers) 
+    {
+        $this->others .= ' ' . $sOthers . ' ';
+        
+        return $this;
+    }
+    
 }

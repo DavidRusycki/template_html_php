@@ -65,7 +65,7 @@ class ControllerSistema
         }
         else {
             /* Cair aqui indica que o usuário não está logado então redireciona a aplicação para o Login */
-            $this->direcionaLogin();   
+            $this->direcionaLogin();
         }
     }
     
@@ -134,7 +134,7 @@ class ControllerSistema
                 $this->getControllerFromPageAction($sPg);
             }
         }
-        else 
+        else
         {
             // Caso não tenha página definida direciona para o menu de rotinas.
             $this->getControllerFromPageAction(EnumSistema::ROTINAS);
