@@ -9,7 +9,9 @@ return array(
     'View\\' => array($baseDir . '/Sistem/Class/view'),
     'Sistem\\' => array($baseDir . '/Sistem'),
     'Model\\' => array($baseDir . '/Sistem/Class/model'),
+    'ModelBo\\' => array($baseDir . '/Sistem/Class/model/modelBo'),
     'Html\\' => array($baseDir . '/Sistem/html_class'),
+    'Enum\\' => array($baseDir . '/Sistem/Class/enum'),
     'Controller\\' => array($baseDir . '/Sistem/Class/controller'),
     'Components\\' => array($baseDir . '/Sistem/Components'),
 );

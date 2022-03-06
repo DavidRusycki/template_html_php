@@ -9,10 +9,9 @@ class ModelSistema
 {
     
     private ModelUsuario $Usuario;
+    private Array $get;
+    private $controllerRequisicao;
 
-    /**
-     * Get the value of Usuario
-     */ 
     public function getUsuario() : ModelUsuario
     {
         if (empty($this->Usuario)) 
@@ -22,15 +21,36 @@ class ModelSistema
         return $this->Usuario;
     }
 
-    /**
-     * Set the value of Usuario
-     *
-     * @return  self
-     */ 
     public function setUsuario($Usuario)
     {
         $this->Usuario = $Usuario;
 
+        return $this;
+    }
+    
+    public function getGet(): array {
+        return $this->get;
+    }
+
+    public function setGet(array $get) 
+    {
+        $this->get = $get;
+        return $this;
+    }
+    
+    public function defineGet($xIndice, $xValor)
+    {
+        $this->get[$xIndice] = $xValor;
+    }
+    
+    public function getControllerRequisicao() 
+    {
+        return $this->controllerRequisicao;
+    }
+
+    public function setControllerRequisicao($controllerRequisicao)
+    {
+        $this->controllerRequisicao = $controllerRequisicao;
         return $this;
     }
     

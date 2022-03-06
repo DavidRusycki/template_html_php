@@ -18,10 +18,15 @@ class ComposerStaticInit73f1b2c0a0c84ab285f18ecebcdd4976
         'M' => 
         array (
             'Model\\' => 6,
+            'ModelBo\\' => 8,
         ),
         'H' => 
         array (
             'Html\\' => 5,
+        ),
+        'E' => 
+        array (
+            'Enum\\' => 5,
         ),
         'C' => 
         array (
@@ -43,9 +48,17 @@ class ComposerStaticInit73f1b2c0a0c84ab285f18ecebcdd4976
         array (
             0 => __DIR__ . '/../..' . '/Sistem/Class/model',
         ),
+        'ModelBo\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Sistem/Class/model/modelBo',
+        ),
         'Html\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Sistem/html_class',
+        ),
+        'Enum\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Sistem/Class/enum',
         ),
         'Controller\\' => 
         array (

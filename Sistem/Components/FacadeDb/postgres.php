@@ -6,7 +6,7 @@ class Postgres extends Manager {
     /**
      * Nome da DataBase
      */
-    const NOME_BD = 'dinamic';
+    const NOME_BD = 'template';
 
     public function getConfigForPdo()
     {

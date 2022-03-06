@@ -5,8 +5,10 @@
             "Components\\" : "./Sistem/Components",
             "Html\\" : "./Sistem/html_class",
             "Model\\" : "./Sistem/Class/model",
+            "ModelBo\\" : "./Sistem/Class/model/modelBo",
             "Controller\\" : "./Sistem/Class/controller",
-            "View\\" : "./Sistem/Class/view"
+            "View\\" : "./Sistem/Class/view",
+            "Enum\\" : "./Sistem/Class/enum"
         }
     }
 }
