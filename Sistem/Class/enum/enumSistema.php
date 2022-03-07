@@ -14,5 +14,8 @@ class EnumSistema
     const ACAO = 'acao';
     const PG = 'pg';
     const ROTINAS = 'rotinas';
+    const METODO = 'metodo';
+    const MONTA_TELA = 1;
+    const PROCESSA_DADOS = 2;
     
 }

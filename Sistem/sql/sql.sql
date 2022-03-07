@@ -24,3 +24,4 @@ create table tbusuario(
 
 alter table tbusuario add constraint pk_tbusuario primary key (codigo);
 
+alter table tbusuario add column senha text not null;

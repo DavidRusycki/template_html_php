@@ -32,6 +32,24 @@ class ModelUsuario
         }
         return $xRetorno;
     }
+    
+    /**
+     * Retorna um model de usuário baseado no código do usuário.
+     */
+    public function getUsuarioFromNome($sNome) 
+    {
+        $xRetorno = $this->getDb()->select("select * from tbusuario where nome = '{$sNome}'");
+        if (is_array($xRetorno)) {
+            $aLinha = end($xRetorno);
+            $oNewModel = new Self();
+            $oNewModel->setDb($this->getDb());
+            $oNewModel->setCodigo($aLinha['codigo']);
+            $oNewModel->setNome($aLinha['nome']);
+
+            $xRetorno = $oNewModel;
+        }
+        return $xRetorno;
+    }
 
     /**
      * Get the value of nome

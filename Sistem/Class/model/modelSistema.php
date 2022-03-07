@@ -1,15 +1,19 @@
 <?php
 namespace Model;
+
+use \Enum\EnumSistema;
+
 /**
  * Modelo Principal do sistema.
  * @author David Rusycki
  * @since 04/03/2022
  */
-class ModelSistema  
+class ModelSistema extends Model
 {
     
     private ModelUsuario $Usuario;
     private Array $get;
+    private Array $post;
     private $controllerRequisicao;
 
     public function getUsuario() : ModelUsuario
@@ -51,6 +55,33 @@ class ModelSistema
     public function setControllerRequisicao($controllerRequisicao)
     {
         $this->controllerRequisicao = $controllerRequisicao;
+        return $this;
+    }
+ 
+    /**
+     * Retorna a ação da requisição.
+     */
+    public function getAcao()
+    {
+        return $this->getGet()[EnumSistema::ACAO];
+    }
+    
+    public function getPost(): array 
+    {
+        return $this->post;
+    }
+
+    public function setPost(array $post) : self 
+    {
+        $this->post = $post;
+        
+        return $this;
+    }
+    
+    public function definePost($xIndice, $xValor)
+    {
+        $this->post[$xIndice] = $xValor;
+        
         return $this;
     }
     

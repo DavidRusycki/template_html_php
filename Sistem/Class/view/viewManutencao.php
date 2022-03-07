@@ -18,6 +18,7 @@ abstract class ViewManutencao extends View
 {
     
     private Body $body;
+    private Head $Head;
     
     /**
      * Construtor da classe.
@@ -38,6 +39,8 @@ abstract class ViewManutencao extends View
     {
         $oHead = new Head([new Meta("UTF-8"), new Meta('', "X-UA-Compatible", "IE=edge"), new Meta('', '', "width=device-width, initial-scale=1.0", "viewport")], new Title('Samuel'));
         $oHead->addOthers(' <link rel="stylesheet" href="http://localhost/template_html_php/sistem/style/style.css"> '); 
+        $this->setHead($oHead);
+        $this->addComponentesHead();
 
         $this->addComponentesBody();
         
@@ -52,6 +55,11 @@ abstract class ViewManutencao extends View
      */
     public abstract function addComponentesBody();
     
+    /**
+     * Adiciona componentes ao Body da página.
+     */
+    public abstract function addComponentesHead();
+    
     public function getBody(): Body 
     {
         return $this->body;
@@ -63,6 +71,20 @@ abstract class ViewManutencao extends View
         
         return $this;
     }
+    
+    public function getHead(): Head 
+    {
+        return $this->Head;
+    }
+
+    public function setHead(Head $Head) : self 
+    {
+        $this->Head = $Head;
+        
+        return $this;
+    }
+
+
     
 }
 

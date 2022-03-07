@@ -4,16 +4,17 @@ namespace Html;
 class Body  
 {
     private string $content;
+    private string $class;
     private $componentes = [];
 
-    public function __construct($content = '')
+    public function __construct($content = '', $class = '')
     {
-        $this->setContent($content);
+        $this->setContent($content)->setClass($class);
     }
 
     public function __toString()
     {
-        return "<body> \n {$this->getContent()} \n {$this->getHtmlComponentes()} </body> \n";
+        return "<body class=\"{$this->getClass()}\" > \n {$this->getContent()} \n {$this->getHtmlComponentes()} </body> \n";
     }
 
     public function getHtmlComponentes() : string
@@ -74,4 +75,19 @@ class Body
 
         return $this;
     }
+    
+    public function getClass(): string 
+    {
+        return $this->class;
+    }
+
+    public function setClass(string $class) : self
+    {
+        $this->class = $class;
+        
+        return $this;
+    }
+
+
+    
 }

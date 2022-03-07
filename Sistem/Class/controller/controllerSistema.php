@@ -18,7 +18,6 @@ class ControllerSistema
     
     private $tela;
     private ModelSistema $model;
-    private Manager $Db;
 
     private function __construct() {}
 
@@ -29,12 +28,22 @@ class ControllerSistema
     public static function init() : void
     {
         $oController = self::getNewSelf();
-        $oController->setDb(Postgres::getInstance());
+        $oController->iniSession();
         $oController->setModel(self::getNewModelSistema());
+        $oController->setDb(Postgres::getInstance());
         $oController->getModel()->setGet($_GET);
+        $oController->getModel()->setPost($_POST);
         $oController->loadUsuario();
         $oController->trataDadosRequisicao();
         $oController->imprimeTela();
+    }
+    
+    public function iniSession()
+    {
+        if (empty($_SESSION)) 
+        {
+            session_start();
+        }
     }
     
     /**
@@ -85,6 +94,7 @@ class ControllerSistema
         }
         else 
         {
+            $this->getModel()->getUsuario()->setLogado(false);
             unset($_SESSION[EnumSistema::USUARIO]);
             unset($_SESSION[EnumSistema::LOGADO]);
         }
@@ -96,8 +106,12 @@ class ControllerSistema
      */
     private function direcionaLogin() : void
     {
-        $this->getModel()->defineGet(EnumSistema::ACAO, EnumAcoes::INCLUIR);
-        $this->getModel()->defineGet(EnumSistema::PG, EnumSistema::PG_LOGIN);
+        if (!$this->Get(EnumSistema::PG, false) || !$this->Get(EnumSistema::PG) == EnumSistema::PG_LOGIN)
+        {
+            $this->getModel()->defineGet(EnumSistema::ACAO, EnumAcoes::CONSULTAR);
+            $this->getModel()->defineGet(EnumSistema::PG, EnumSistema::PG_LOGIN);
+            $this->getModel()->defineGet(EnumSistema::METODO, EnumSistema::MONTA_TELA);
+        }
     }
     
     /**
@@ -113,7 +127,30 @@ class ControllerSistema
      */
     public function trataDadosRequisicao() 
     {
+        $this->trataRequisicao();
         $this->validaParametros();
+    }
+    
+    /**
+     * Trata a requisição para caso não tiver os valores default setar os mesmos e garantir um destino para a requisição.
+     */
+    public function trataRequisicao()
+    {
+        if ($this->isLogado()) 
+        {
+            if (!array_key_exists(EnumSistema::PG, $this->Get())) 
+            {
+                $this->getModel()->defineGet(EnumSistema::PG, EnumSistema::ROTINAS);
+            }
+            if (!array_key_exists(EnumSistema::ACAO, $this->Get())) 
+            {
+                $this->getModel()->defineGet(EnumSistema::ACAO, EnumAcoes::CONSULTAR);
+            }
+            if (!array_key_exists(EnumSistema::METODO, $this->Get())) 
+            {
+                $this->getModel()->defineGet(EnumSistema::METODO, EnumSistema::MONTA_TELA);
+            }
+        }
     }
     
     /**
@@ -121,31 +158,20 @@ class ControllerSistema
      */
     private function validaParametros() 
     {
-        if (array_key_exists(EnumSistema::PG, $this->Get())) 
+        $sPg = $this->Get(EnumSistema::PG);
+        $iAcao = $this->Get(EnumSistema::ACAO);
+        $iMetodo = $this->Get(EnumSistema::METODO);
+        if ($sPg && $iAcao && $iMetodo)
         {
-            if ($this->Get(EnumSistema::PG) && $this->Get(EnumSistema::ACAO))
-            {
-                $sPg = $this->Get(EnumSistema::PG);
-                $iAcao = $this->Get(EnumSistema::ACAO);
-                $this->getControllerFromPageAction($sPg, $iAcao);
-            }
-            else if ($this->Get(EnumSistema::PG))
-            {
-                $this->getControllerFromPageAction($sPg);
-            }
-        }
-        else
-        {
-            // Caso não tenha página definida direciona para o menu de rotinas.
-            $this->getControllerFromPageAction(EnumSistema::ROTINAS);
-        }
+            $this->getControllerFromPageAction($sPg, $iAcao, $iMetodo);
+        } 
     }
 
     /**
      * Retorna o controller baseado na página e na ação.
      * @return object
      */
-    private function getControllerFromPageAction($sNome, $iAcao = EnumAcoes::CONSULTAR) : object
+    private function getControllerFromPageAction($sNome, $iAcao, $iMetodo) : object
     {
         $oController = false;
         $oRotina = new ModelRotina();
@@ -154,14 +180,18 @@ class ControllerSistema
         
         $bExiste = $oBoRotina->validaRotinaExiste($sNome);
         
-        if ($bExiste) 
+        if ($bExiste)
         {
             $sNomeRotinaTratado = $oRotina->getNomeTratado($sNome);
             $sPrefix = $iAcao == EnumAcoes::CONSULTAR ? 'ControllerConsulta' : 'ControllerManutencao';
             $sController = '\Controller\\' . $sPrefix . $sNomeRotinaTratado; 
             if (class_exists($sController))
             {
-                $oController = new $sController();
+                $oController = new $sController($this);
+                $oController->setModelSistema($this->getModel());
+                if ($iMetodo == EnumSistema::PROCESSA_DADOS && $iAcao != EnumAcoes::CONSULTAR ) {
+                    $oController->processaDados();
+                }
             }
             else 
             {
@@ -177,7 +207,7 @@ class ControllerSistema
      * @param Mixed $xIndice
      * @return Mixed
      */
-    public function Get($xIndice = null)
+    public function Get($xIndice = null, $bErro = true)
     {
         $xRetorno = null;
         if (is_null($xIndice)) 
@@ -186,7 +216,17 @@ class ControllerSistema
         }
         else 
         {
-          $xRetorno = $this->getModel()->getGet()[$xIndice];
+          if (!$bErro) {
+            $xRetorno = array_key_exists($xIndice, $this->getModel()->getGet());
+            if ($xRetorno) 
+            {
+                $xRetorno = $this->getModel()->getGet()[$xIndice];  
+            }
+          }
+          else 
+          {
+            $xRetorno = $this->getModel()->getGet()[$xIndice];  
+          }
         }
         return $xRetorno;
     }
@@ -228,6 +268,7 @@ class ControllerSistema
      */ 
     public function getModel()
     {
+
         return $this->model;
     }
 
@@ -248,7 +289,7 @@ class ControllerSistema
      */ 
     public function getDb()
     {
-        return $this->Db;
+        return $this->getModel()->getDb();
     }
 
     /**
@@ -258,7 +299,7 @@ class ControllerSistema
      */ 
     public function setDb($Db)
     {
-        $this->Db = $Db;
+        $this->getModel()->setDb($Db);
 
         return $this;
     }

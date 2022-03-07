@@ -7,12 +7,22 @@ use Components\FacadeDb\Manager;
  * @author David Rusycki
  * @since 05/03/2022
  */
-class ModelRotina
+class ModelRotina extends Model
 {
 
     private $codigo;
     private $nome;
-    private Manager $Db;
+    
+    /**
+     * Retorna as rotinas do sistema.
+     * @return Array
+     */
+    public function buscaAllRotinas()
+    {
+        $xResult = $this->getDb()->select("select * from tbrotina;");
+        
+        return $xResult;
+    }
     
     /**
      * Busca a rotina pelo nome.
@@ -89,15 +99,4 @@ class ModelRotina
         return $this;
     }
  
-    public function getDb() 
-    {
-        return $this->Db;
-    }
-
-    public function setDb($Db)
-    {
-        $this->Db = $Db;
-        return $this;
-    }
-    
 }
