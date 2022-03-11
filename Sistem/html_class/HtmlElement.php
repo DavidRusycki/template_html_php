@@ -9,9 +9,8 @@ abstract class HtmlElement
     
     private string $class = '';
     private string $id;
-    private string $name;
+    private string $name = '';
  
-    public abstract function __construct();
     public abstract function __toString();
     
     public function getClass(): string 

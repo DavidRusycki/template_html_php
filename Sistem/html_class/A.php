@@ -8,7 +8,7 @@ class A extends HtmlElement
     private $href;
     
     public function __construct($content = '', $href = '') {
-        $this->setContent($content);
+        $this->setContent($content)->setHref($href);
     }
 
     public function __toString() {
